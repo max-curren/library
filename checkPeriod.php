@@ -13,7 +13,7 @@
 
         $result = $conn->query("SELECT id FROM passes WHERE period_requested = '$period' AND date_requested = '$date_requested' AND email = '$email' AND first_name = '$first_name' AND last_name = '$last_name'");
 
-        if($result === false)
+        if($result == false)
         {
             echo "Error: " . $conn->error;
         }
@@ -26,11 +26,11 @@
             }
             else
             {
-                if($period === "X")
+                if($period == "X")
                 {
                     $result = $conn->query("SELECT id FROM passes WHERE period_requested = 'X' AND date_requested = '$date_requested'");
 
-                    if($result === false)
+                    if($result == false)
                     {
                         echo "Error: " . $conn->error;
                     }

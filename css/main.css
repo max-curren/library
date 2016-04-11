@@ -2,3 +2,13 @@
 {
     display: none;
 }
+
+#admin_period
+{
+    float: right;
+}
+
+#admin_form
+{
+    margin: 0 0 20px 0;
+}
