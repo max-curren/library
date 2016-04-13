@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Success!</title>
+    <title>Admin</title>
 
     <link href="../css/bootstrap.min.css" rel="stylesheet" />
     <link href="../css/main.css" rel="stylesheet" />
@@ -23,6 +23,76 @@
 <div class="container tab-content">
 
     <div class="well">
+        <fieldset class="form-group">
+            <label for="period">Current Period</label>
+            <select id="period_signin" class="form-control" name="period">
+                <option value="X">X</option>
+                <option value="A">A</option>
+                <option value="B">B</option>
+                <option value="C">C</option>
+                <option value="D">D</option>
+                <option value="E">E</option>
+                <option value="F">F</option>
+                <option value="G">G</option>
+            </select>
+        </fieldset>
+
+        <h2>Library Check In</h2>
+
+        <div id="signin_alert" class="alert alert-success">
+
+        </div>
+
+        <form id="lib_signin" class="form">
+
+
+            <fieldset class="form-group">
+                <label for="studentID">Student ID</label>
+                <input type="text" class="form-control" id="studentID" />
+            </fieldset>
+
+            <div id="or">Or</div>
+
+            <fieldset class="form-group">
+                <label for="last_name">Last Name</label>
+                <input type="text" class="form-control" id="last_name" />
+            </fieldset>
+        </form>
+
+        <table id="signin_table" class="table">
+            <thead>
+                <tr>
+                    <th>
+                        First Name
+                    </th>
+
+                    <th>
+                        Last Name
+                    </th>
+
+                    <th>
+                        Homeroom
+                    </th>
+
+                    <th>
+                        Student ID
+                    </th>
+
+                    <th>
+                        Grade
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
+
+            </tbody>
+        </table>
+    </div>
+
+    <div class="well">
+        <h2 id="requestedPasses">Requested passes</h2>
+
         <form id="admin_form" class="form-inline">
             <fieldset class="form-group">
                 <label for="date-requested">Date </label>
@@ -78,6 +148,7 @@
 
 <script src="../js/jquery.min.js"></script>
 <script src="../js/moment.js"></script>
+<script src="../js/jquery.csv.min.js"></script>
 <script src="../js/Admin.js"></script>
 <script src="../js/bootstrap.min.js"></script>
 </body>

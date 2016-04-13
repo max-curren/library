@@ -19,5 +19,9 @@ if(isset($_POST["isValidRequest"]) && $_POST["isValidRequest"] == true)
         echo json_encode($passArray);
     }
 }
+else
+{
+    header("Location: index.html");
+}
 
 ?>

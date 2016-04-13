@@ -43,7 +43,8 @@
             }
             else
             {
-                echo "Success! <a href='index.html'>Click here to go back.</a>";
+                $formattedDate = strtotime($date_requested);
+                echo "Success! You are scheduled to visit the library on " . date("l, F d", $formattedDate) . " during Period " . $period . ". <a href='index.html'>Click here to go back.</a>";
             }
         }
         else

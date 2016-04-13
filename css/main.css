@@ -12,3 +12,23 @@
 {
     margin: 0 0 20px 0;
 }
+
+#lib_signin
+{
+    margin-top: 25px;
+}
+
+#requestedPasses
+{
+    margin-bottom: 25px;
+}
+
+#or
+{
+    margin-bottom: 10px;
+}
+
+#signin_alert
+{
+    display: none;
+}
