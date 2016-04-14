@@ -10,17 +10,32 @@
 
 #admin_form
 {
-    margin: 0 0 20px 0;
+    margin-bottom: 20px;
 }
 
 #lib_signin
 {
-    margin-top: 25px;
+    margin-top: 20px;
 }
 
-#requestedPasses
+#requestedPasses_header
+{
+    margin-bottom: 20px;
+}
+
+#history_period
+{
+    float: right;
+}
+
+#history_header
 {
     margin-bottom: 25px;
+}
+
+#history_form
+{
+    margin-bottom: 20px;
 }
 
 #or
@@ -31,4 +46,9 @@
 #signin_alert
 {
     display: none;
+}
+
+#checkin_header
+{
+    margin-bottom: 20px;
 }

@@ -11,6 +11,15 @@ if(isset($_POST["isValidRequest"]) && $_POST["isValidRequest"] == true)
     $hadAPass = $_POST["hadAPass"];
     $period = $_POST["currentPeriod"];
 
+    if($hadAPass == "true")
+    {
+        $hadAPass = 1;
+    }
+    else
+    {
+        $hadAPass = 0;
+    }
+
     $query = "INSERT INTO checkedIn (first_name, last_name, period_created, student_id, hadAPass, homeroom, grade) VALUES ('$first_name', '$last_name', '$period', '$student_id', '$hadAPass', '$homeroom', '$grade')";
 
     if($conn->query($query) === false)

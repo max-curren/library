@@ -14,16 +14,28 @@
 
 <body>
 
-<div class="navbar navbar-default">
-    <div class="navbar-header">
-        <a class="navbar-brand" href="../index.html">BFHS Library Admin</a>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="../index.html">BFHS Library Admin</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="active"><a data-toggle="tab" href="#check_in">Check in</a></li>
+            <li><a data-toggle="tab" href="#passes">Passes</a></li>
+            <li><a data-toggle="tab" href="#history">History</a></li>
+        </ul>
     </div>
-</div>
+
+</nav>
 
 <div class="container tab-content">
 
-    <div class="well">
-        <fieldset class="form-group">
+    <div id="check_in" class="well tab-pane fade in active">
+
+
+        <h2 id="checkin_header">Library Check In</h2>
+
+        <fieldset id="signin_period_dd" class="form-group form-inline">
             <label for="period">Current Period</label>
             <select id="period_signin" class="form-control" name="period">
                 <option value="X">X</option>
@@ -36,12 +48,6 @@
                 <option value="G">G</option>
             </select>
         </fieldset>
-
-        <h2>Library Check In</h2>
-
-        <div id="signin_alert" class="alert alert-success">
-
-        </div>
 
         <form id="lib_signin" class="form">
 
@@ -59,8 +65,9 @@
             </fieldset>
         </form>
 
-        <table id="signin_table" class="table">
-            <thead>
+        <div class="table-responsive">
+            <table id="signin_table" class="table">
+                <thead>
                 <tr>
                     <th>
                         First Name
@@ -81,17 +88,27 @@
                     <th>
                         Grade
                     </th>
+
+                    <th>
+                        Has Pass?
+                    </th>
                 </tr>
-            </thead>
+                </thead>
 
-            <tbody>
+                <tbody>
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
+
+
+        <div id="signin_alert" class="alert alert-success">
+
+        </div>
     </div>
 
-    <div class="well">
-        <h2 id="requestedPasses">Requested passes</h2>
+    <div id="passes" class="well tab-pane fade">
+        <h2 id="requestedPasses_header">Passes</h2>
 
         <form id="admin_form" class="form-inline">
             <fieldset class="form-group">
@@ -114,8 +131,9 @@
             </fieldset>
         </form>
 
-        <table id="admin_table" class="table">
-            <thead>
+        <div class="table-responsive">
+            <table id="admin_table" class="table">
+                <thead>
                 <tr>
                     <th>
                         First Name
@@ -133,12 +151,84 @@
                         Date Created
                     </th>
                 </tr>
-            </thead>
+                </thead>
 
-            <tbody>
+                <tbody>
 
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div id="history" class="well tab-pane fade">
+        <h2 id="history_header">History</h2>
+
+        <form id="history_form" class="form-inline">
+            <fieldset class="form-group">
+                <label for="date-requested_history">Date </label>
+                <input type="date" class="form-control" id="date-requested_history" name="date-requested" />
+            </fieldset>
+
+            <fieldset id="history_period" class="form-group">
+                <label for="period_history">Period </label>
+                <select id="period_history" class="form-control" name="period">
+                    <option value="X">X</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="C">C</option>
+                    <option value="D">D</option>
+                    <option value="E">E</option>
+                    <option value="F">F</option>
+                    <option value="G">G</option>
+                </select>
+            </fieldset>
+        </form>
+
+        <div class="table-responsive">
+            <table id="history_table" class="table">
+                <thead>
+                <tr>
+                    <th>
+                        First Name
+                    </th>
+
+                    <th>
+                        Last Name
+                    </th>
+
+                    <th>
+                        Date/Time
+                    </th>
+
+                    <th>
+                        Period
+                    </th>
+
+                    <th>
+                        Homeroom
+                    </th>
+
+                    <th>
+                        Student ID
+                    </th>
+
+                    <th>
+                        Grade
+                    </th>
+
+                    <th>
+                        Had A Pass?
+                    </th>
+                </tr>
+                </thead>
+
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+
     </div>
 
 </div>

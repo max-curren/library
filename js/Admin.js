@@ -1,6 +1,10 @@
 $("#date-requested").val(moment().format("YYYY-MM-DD"));
 $("#date-requested").attr("min", moment().format("YYYY-MM-DD"));
+$("#date-requested_history").val(moment().format("YYYY-MM-DD"));
+$("#date-requested_history").attr("min", moment().format("YYYY-MM-DD"));
 
+var csvData;
+var csvDataArray = [];
 
 $.ajax
 ({
@@ -10,12 +14,12 @@ $.ajax
     success: function(data){processData(data)}
 });
 
-var csvData;
 
 var processData = function(csv)
 {
     csvData = $.csv.toObjects(csv);
 };
+
 
 var searchByID = function(data, id)
 {
@@ -25,6 +29,7 @@ var searchByID = function(data, id)
     {
         if(data[key].id === id)
         {
+            csvDataArray.push(data[key]);
             addToSigninTable(data[key]);
         }
 
@@ -38,8 +43,9 @@ var searchByLastName = function(data, last_name)
     for(var key in data)
     {
 
-        if(data[key].last_name.toLowerCase().replace("'", "").indexOf(last_name.toLowerCase()) >= 0)
+        if(data[key].last_name.toLowerCase().replace("'", "").indexOf(last_name.toLowerCase()) == 0)
         {
+            csvDataArray.push(data[key]);
             addToSigninTable(data[key]);
         }
 
@@ -48,7 +54,31 @@ var searchByLastName = function(data, last_name)
 
 var addToSigninTable = function(data)
 {
-    $("#signin_table tbody").append("<tr><td>" + data.first_name + "</td><td>" + data.last_name + "</td><td>" + data.homeroom + "</td><td>" + data.id + "</td><td>" + data.grade + "</td><td><a id='" + data.id + "' href='#' class='checkIn_btn btn-sm btn-success'>Check in</a></td></tr>");
+    var hasPass = "No";
+    var currentPeriod = $("#period_signin").val();
+    $.ajax
+        ({
+            method: "POST",
+            url: "getPasses.php",
+            data: {isValidRequest: true, period: currentPeriod, date: date}
+        })
+        .done(function (result) {
+            var passArray = $.parseJSON(result);
+
+            for (var key in passArray)
+            {
+                hasPass = "No";
+                if (passArray[key][0].toLowerCase() === data.first_name.toLowerCase() && passArray[key][1].toLowerCase() === data.last_name.toLowerCase())
+                {
+                    hasPass = "Yes";
+
+
+                }
+            }
+
+            $("#signin_table tbody").append("<tr><td>" + data.first_name + "</td><td>" + data.last_name + "</td><td>" + data.homeroom + "</td><td>" + data.id + "</td><td>" + data.grade + "</td><td>" + hasPass + "</td><td><a id='" + data.id + "' href='#' class='checkIn_btn btn-sm btn-success'>Check in</a></td></tr>");
+        });
+
 };
 
 $("body").on("click", "a.checkIn_btn", function(e)
@@ -63,11 +93,11 @@ $("body").on("click", "a.checkIn_btn", function(e)
 
     var date = moment().format("YYYY-MM-DD");
 
-    for(var key in csvData)
+    for(var key in csvDataArray)
     {
-        if(csvData[key].id === id)
+        if(csvDataArray[key].id === id)
         {
-            studentData = csvData[key];
+            studentData = csvDataArray[key];
         }
     }
 
@@ -87,8 +117,6 @@ $("body").on("click", "a.checkIn_btn", function(e)
                 {
                     hadAPass = true;
                 }
-                console.log(passArray[key][0].toLowerCase() +"==="+ studentData.first_name.toLowerCase() + ", " + passArray[key][1].toLowerCase() +"==="+ studentData.last_name.toLowerCase());
-                console.log(hadAPass);
             }
 
             $.ajax
@@ -99,18 +127,15 @@ $("body").on("click", "a.checkIn_btn", function(e)
                 })
                 .done(function (result) {
 
-                    if(result !== "success")
-                    {
                         console.log(result);
-                    }
-                    else
-                    {
-                        $("#lib_signin").trigger("reset");
+
+                        $("#last_name").val("");
+                        $("#studentID").val("");
                         $("#signin_table tbody tr").remove();
 
                         $("#signin_alert").html("<strong>Success</strong> " + studentData.first_name + " " + studentData.last_name + " has been checked in.");
-                        $("#signin_alert").fadeIn(100).delay(1000).fadeOut(100);
-                    }
+                        $("#signin_alert").fadeIn(500).delay(1000).fadeOut(500);
+
 
                 });
 
@@ -123,6 +148,7 @@ $("body").on("click", "a.checkIn_btn", function(e)
 
 $("#studentID").keyup(function()
 {
+    $("#last_name").val("");
     $("#signin_table tbody tr").remove();
 
     var studentID = $("#studentID").val();
@@ -135,6 +161,7 @@ $("#studentID").keyup(function()
 
 $("#last_name").keyup(function()
 {
+    $("#studentID").val("");
     $("#signin_table tbody tr").remove();
 
     var last_name = $("#last_name").val();
