@@ -3,13 +3,14 @@ if(isset($_POST["isValidRequest"]) && $_POST["isValidRequest"] == true)
 {
     require "../DB.php";
 
-    $first_name = $_POST["first_name"];
-    $last_name = $_POST["last_name"];
-    $student_id = $_POST["student_id"];
-    $homeroom = $_POST["homeroom"];
-    $grade = $_POST["grade"];
-    $hadAPass = $_POST["hadAPass"];
-    $period = $_POST["currentPeriod"];
+    $first_name = $conn->real_escape_string($_POST["first_name"]);
+    $last_name = $conn->real_escape_string($_POST["last_name"]);
+    $student_id = $conn->real_escape_string($_POST["student_id"]);
+    $homeroom = $conn->real_escape_string($_POST["homeroom"]);
+    $grade = $conn->real_escape_string($_POST["grade"]);
+    $hadAPass = $conn->real_escape_string($_POST["hadAPass"]);
+    $period = $conn->real_escape_string($_POST["currentPeriod"]);
+    $date = $conn->real_escape_string($_POST["date"]);
 
     if($hadAPass == "true")
     {
@@ -20,7 +21,7 @@ if(isset($_POST["isValidRequest"]) && $_POST["isValidRequest"] == true)
         $hadAPass = 0;
     }
 
-    $query = "INSERT INTO checkedIn (first_name, last_name, period_created, student_id, hadAPass, homeroom, grade) VALUES ('$first_name', '$last_name', '$period', '$student_id', '$hadAPass', '$homeroom', '$grade')";
+    $query = "INSERT INTO checkedin (first_name, last_name, date_created, period_created, student_id, hadAPass, homeroom, grade) VALUES ('$first_name', '$last_name', '$date', '$period', '$student_id', '$hadAPass', '$homeroom', '$grade')";
 
     if($conn->query($query) === false)
     {
