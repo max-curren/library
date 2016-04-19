@@ -22,20 +22,21 @@
 
 <div class="container tab-content">
 
-    <div class="alert alert-success">
+
         <?php
 
-        if(isset($_POST["email"]))
+        session_start();
+
+        if(isset($_POST["first-name"]))
         {
             require "DB.php";
 
-            $email = $conn->real_escape_string($_POST["email"]);
             $first_name = $conn->real_escape_string($_POST["first-name"]);
             $last_name = $conn->real_escape_string($_POST["last-name"]);
             $date_requested = $conn->real_escape_string($_POST["date-requested"]);
             $period = $conn->real_escape_string($_POST["period"]);
-
-            $query = "INSERT INTO passes (first_name, last_name, date_requested, period_requested, email) VALUES ('$first_name', '$last_name', '$date_requested', '$period', '$email')";
+            
+            $query = "INSERT INTO passes (first_name, last_name, date_requested, period_requested) VALUES ('$first_name', '$last_name', '$date_requested', '$period')";
 
             if($conn->query($query) === false)
             {
@@ -43,8 +44,19 @@
             }
             else
             {
+                $_SESSION["submitted"] = "true";
                 $formattedDate = strtotime($date_requested);
-                echo "Success! You are scheduled to visit the library on " . date("l, F d", $formattedDate) . " during Period " . $period . ". <a href='index.html'>Click here to go back.</a>";
+                echo "
+
+                <div class='alert alert-success'><strong>Success!</strong> Please screenshot/print the pass below to show to your study teacher.</div>
+                <div id='completed_pass' class='well'>
+                    <h2>Library Pass</h2>
+                    
+                    <p class='pass_item'><strong>Student Name: </strong>" . $first_name . " " . $last_name . "</p>
+                    <p class='pass_item'><strong>Date: </strong>" . date("l, F d", $formattedDate) . "</span>
+                    <p class='pass_item'><strong>Period: </strong>" . $period . "</span>
+                </div>
+                ";
             }
         }
         else

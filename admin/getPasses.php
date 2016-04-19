@@ -7,7 +7,7 @@ if(isset($_POST["isValidRequest"]) && $_POST["isValidRequest"] == true)
     $date = $conn->real_escape_string($_POST["date"]);
 
 
-    $result = $conn->query("SELECT first_name, last_name, email, date_created FROM passes WHERE period_requested = '$period' AND date_requested = '$date'");
+    $result = $conn->query("SELECT first_name, last_name, date_created FROM passes WHERE period_requested = '$period' AND date_requested = '$date'");
 
     if($result === false)
     {

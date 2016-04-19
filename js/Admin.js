@@ -58,7 +58,7 @@ var searchByLastName = function(data, last_name)
 
 var addToSigninTable = function(data)
 {
-    /*
+
     var currentPeriod = $("#period_signin").val();
     $.ajax
         ({
@@ -68,10 +68,11 @@ var addToSigninTable = function(data)
         })
         .done(function (result) {
             var passArray = $.parseJSON(result);
+            var hasPass = "No";
 
             for (var key in passArray)
             {
-                hasPass = "No";
+
                 if (passArray[key][0].toLowerCase() === data.first_name.toLowerCase() && passArray[key][1].toLowerCase() === data.last_name.toLowerCase())
                 {
                     hasPass = "Yes";
@@ -80,10 +81,11 @@ var addToSigninTable = function(data)
 
             }
 
-
+            $("#signin_table").show();
+            $("#signin_table tbody").append("<tr><td>" + data.first_name + "</td><td>" + data.last_name + "</td><td>" + data.homeroom + "</td><td>" + data.id + "</td><td>" + data.grade + "</td><td>" + hasPass + "</td><td><a id='" + data.id + "' href='#' class='checkIn_btn btn-sm btn-success'>Check in</a></td></tr>");
         });
-*/
-    $("#signin_table tbody").append("<tr><td>" + data.first_name + "</td><td>" + data.last_name + "</td><td>" + data.homeroom + "</td><td>" + data.id + "</td><td>" + data.grade + "</td><td><a id='" + data.id + "' href='#' class='checkIn_btn btn-sm btn-success'>Check in</a></td></tr>");
+
+
 };
 
 $("body").on("click", "a.checkIn_btn", function(e)
@@ -149,8 +151,12 @@ $("body").on("click", "a.checkIn_btn", function(e)
                         $("#studentID").val("");
                         $("#signin_table tbody tr").remove();
 
+                        $("#signin_table").hide();
+
                         $("#signin_alert").html("<strong>Success</strong> " + studentData.first_name + " " + studentData.last_name + " has been checked in.");
                         $("#signin_alert").fadeIn(500).delay(1000).fadeOut(500);
+
+
 
 
                     });
@@ -191,6 +197,10 @@ $("#studentID").keyup(function()
     {
         searchByID(csvData, studentID);
     }
+    else
+    {
+        $("#signin_table").hide();
+    }
 
 });
 
@@ -207,6 +217,10 @@ $("#last_name").keyup(function()
     {
         searchByLastName(csvData, last_name);
     }
+    else
+    {
+        $("#signin_table").hide();
+    }
 
 });
 
@@ -221,19 +235,20 @@ var getHistory = function(date, period)
             data: {isValidRequest: true, period: period, date: date}
         })
         .done(function (result) {
-            console.log(result);
             var historyArray = $.parseJSON(result);
             var hadAPass = "No";
 
             for(var key in historyArray)
             {
                 hadAPass = "No";
-                if(historyArray[7] === "1")
+
+                if(historyArray[key][7] === "1")
                 {
                     hadAPass = "Yes";
                 }
 
-                $("#history_table tbody").append("<tr><td>" + historyArray[key][0] + "</td><td>" + historyArray[key][1] + "</td><td>" + historyArray[key][2] + "</td><td>" + historyArray[key][3] + "</td><td>" + historyArray[key][4] + "</td><td>" + historyArray[key][5] + "</td><td>" + historyArray[key][6] + "</td><td>" + hadAPass + "</td>");
+                var dateTime = moment(historyArray[key][2]).format('h:mm:ss a');
+                $("#history_table tbody").append("<tr><td>" + historyArray[key][0] + "</td><td>" + historyArray[key][1] + "</td><td>" + dateTime + "</td><td>" + historyArray[key][3] + "</td><td>" + historyArray[key][4] + "</td><td>" + historyArray[key][5] + "</td><td>" + historyArray[key][6] + "</td><td>" + hadAPass + "</td>");
             }
             // }
 
@@ -262,7 +277,8 @@ var getPasses = function(date, period)
 
                  for(var key in passArray)
                  {
-                     $("#admin_table tbody").append("<tr><td>" + passArray[key][0] + "</td><td>" + passArray[key][1] + "</td><td>" + passArray[key][2] + "</td><td>" + passArray[key][3] + "</td></tr>");
+                     var dateTime = moment(passArray[key][2]).format('h:mm:ss a');
+                     $("#admin_table tbody").append("<tr><td>" + passArray[key][0] + "</td><td>" + passArray[key][1] + "</td><td>" + dateTime + "</td></tr>");
                  }
            // }
 
@@ -322,5 +338,15 @@ $("#period_history").change(function()
     date_history = $("#date-requested_history").val();
     period_history = $("#period_history").val();
 
+    getHistory(date_history, period_history);
+});
+
+$("#pass_nav").click(function()
+{
+    getPasses(date, period);
+});
+
+$("#history_nav").click(function()
+{
     getHistory(date_history, period_history);
 });

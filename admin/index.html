@@ -21,8 +21,8 @@
         </div>
         <ul class="nav navbar-nav">
             <li class="active"><a data-toggle="tab" href="#check_in">Check in</a></li>
-            <li><a data-toggle="tab" href="#passes">Passes</a></li>
-            <li><a data-toggle="tab" href="#history">History</a></li>
+            <li><a id="pass_nav" data-toggle="tab" href="#passes">Passes</a></li>
+            <li><a id="history_nav" data-toggle="tab" href="#history">History</a></li>
         </ul>
     </div>
 
@@ -89,6 +89,10 @@
                         Grade
                     </th>
 
+                    <th>
+                        Has Pass?
+                    </th>
+
                 </tr>
                 </thead>
 
@@ -141,11 +145,7 @@
                     </th>
 
                     <th>
-                        Email
-                    </th>
-
-                    <th>
-                        Date Created
+                        Time Created
                     </th>
                 </tr>
                 </thead>
@@ -195,7 +195,7 @@
                     </th>
 
                     <th>
-                        Date/Time
+                        Time Checked In
                     </th>
 
                     <th>

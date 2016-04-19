@@ -7,7 +7,7 @@ if(isset($_POST["isValidRequest"]) && $_POST["isValidRequest"] == true)
     $date = $conn->real_escape_string($_POST["date"]);
 
 
-    $result = $conn->query("SELECT first_name, last_name, date_created, period_created, homeroom, student_id, grade, hadAPass FROM checkedin WHERE period_created = '$period' AND date_created = '$date'");
+    $result = $conn->query("SELECT first_name, last_name, timestamp_created, period_created, homeroom, student_id, grade, hadAPass FROM checkedin WHERE period_created = '$period' AND date_created = '$date'");
 
     if($result === false)
     {

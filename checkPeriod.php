@@ -4,14 +4,13 @@
     if(isset($_POST["isValidRequest"]) && $_POST["isValidRequest"] == true)
     {
         require "DB.php";
-
-        $email = $conn->real_escape_string($_POST["email"]);
+        
         $first_name = $conn->real_escape_string($_POST["first_name"]);
         $last_name = $conn->real_escape_string($_POST["last_name"]);
         $period = $conn->real_escape_string($_POST["period"]);
         $date_requested = $conn->real_escape_string($_POST["date_requested"]);
 
-        $result = $conn->query("SELECT id FROM passes WHERE period_requested = '$period' AND date_requested = '$date_requested' AND email = '$email' AND first_name = '$first_name' AND last_name = '$last_name'");
+        $result = $conn->query("SELECT id FROM passes WHERE period_requested = '$period' AND date_requested = '$date_requested' AND first_name = '$first_name' AND last_name = '$last_name'");
 
         if($result == false)
         {
