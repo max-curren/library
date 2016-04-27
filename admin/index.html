@@ -23,6 +23,7 @@
             <li class="active"><a data-toggle="tab" href="#check_in">Check in</a></li>
             <li><a id="pass_nav" data-toggle="tab" href="#passes">Passes</a></li>
             <li><a id="history_nav" data-toggle="tab" href="#history">History</a></li>
+            <li><a id="xLimit_nav" data-toggle="tab" href="#xLimit">Set X Limit</a></li>
         </ul>
     </div>
 
@@ -226,6 +227,20 @@
             </table>
         </div>
 
+    </div>
+
+    <div id="xLimit" class="well tab-pane fade">
+        <h2 id="xLimit_header">Set X Limit</h2>
+
+        <fieldset class="form-group">
+            <input type="text" class="form-control" id="xLimit_input" name="xLimit_input" />
+        </fieldset>
+
+        <fieldset class="form-group">
+            <a class="btn btn-default" id="setLimit" href="#">Set Limit</a>
+        </fieldset>
+
+        <div id="limit_alert" class='alert alert-success'><strong>Success!</strong> The X period limit has been changed.</div>
     </div>
 
 </div>

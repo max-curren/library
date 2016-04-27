@@ -67,3 +67,13 @@
 {
     font-size: 20px;
 }
+
+#xLimit_header
+{
+    margin-bottom: 15px;
+}
+
+#limit_alert
+{
+    display: none;
+}

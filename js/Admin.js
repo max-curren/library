@@ -21,6 +21,51 @@ var processData = function(csv)
 };
 
 
+var xLimit;
+$.ajax
+({
+    method: "POST",
+    url: "../xLimit.txt",
+    dataType: "text",
+    success: function(data)
+    {
+        xLimit = data;
+
+        $("#xLimit_input").attr("placeholder", "Current: " + xLimit);
+    }
+});
+
+$("#setLimit").click(function(e)
+{
+    e.preventDefault();
+
+    var inputtedLimit = $("#xLimit_input").val();
+
+
+
+    if(inputtedLimit !== "" && $.isNumeric(inputtedLimit))
+    {
+        $.ajax
+            ({
+                method: "POST",
+                url: "changeXLimit.php",
+                data: {isValidRequest: true, inputtedLimit: inputtedLimit}
+            })
+            .done(function (result) {
+                $("#xLimit_input").attr("placeholder", "Current: " + inputtedLimit);
+                $("#xLimit_input").val("");
+                $("#limit_alert").fadeIn(500).delay(1000).fadeOut(500);
+
+            });
+    }
+});
+
+
+
+
+
+
+
 var searchByID = function(data, id)
 {
     //var resultsArray = [];
@@ -46,7 +91,7 @@ var searchByLastName = function(data, last_name)
     for(var key in data)
     {
 
-        if(data[key].last_name.toLowerCase().replace("'", "").indexOf(last_name.toLowerCase()) == 0 && signInTableCount < 10)
+        if(data[key].last_name.toLowerCase().replace("'", "").indexOf(last_name.toLowerCase()) == 0 && signInTableCount < 7)
         {
             signInTableCount++;
             csvDataArray.push(data[key]);
@@ -195,6 +240,7 @@ $("#studentID").keyup(function()
     var studentID = $("#studentID").val();
     if(studentID.length === 5)
     {
+        $("#signin_table tbody tr").remove();
         searchByID(csvData, studentID);
     }
     else
@@ -213,8 +259,9 @@ $("#last_name").keyup(function()
 
     var last_name = $("#last_name").val();
 
-    if(last_name !== "")
+    if(last_name != "")
     {
+        $("#signin_table tbody tr").remove();
         searchByLastName(csvData, last_name);
     }
     else

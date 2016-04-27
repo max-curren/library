@@ -1,6 +1,6 @@
 <?php
 
-    $xLimit = 30;
+    $xLimit = file_get_contents("xLimit.txt");
     if(isset($_POST["isValidRequest"]) && $_POST["isValidRequest"] == true)
     {
         require "DB.php";
