@@ -10,5 +10,83 @@
 
 #admin_form
 {
-    margin: 0 0 20px 0;
+    margin-bottom: 20px;
+}
+
+#lib_signin
+{
+    margin-top: 20px;
+}
+
+#requestedPasses_header
+{
+    margin-bottom: 20px;
+}
+
+#history_period
+{
+    float: right;
+}
+
+#history_header
+{
+    margin-bottom: 25px;
+}
+
+#history_form
+{
+    margin-bottom: 20px;
+}
+
+#or
+{
+    margin-bottom: 10px;
+}
+
+#signin_alert
+{
+    display: none;
+}
+
+#checkin_header
+{
+    margin-bottom: 20px;
+}
+
+#signin_table
+{
+    display: none;
+}
+
+#completed_pass h2
+{
+    font-weight: bold;
+}
+
+#completed_pass .pass_item
+{
+    font-size: 20px;
+}
+
+#xLimit_header
+{
+    margin-bottom: 15px;
+}
+
+#limit_alert
+{
+    display: none;
+}
+
+
+#searchName, #searchID
+{
+    margin-top: 5px;
+}
+
+
+
+.well
+{
+    background-color: #f8f8f8;
 }
