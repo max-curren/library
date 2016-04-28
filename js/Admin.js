@@ -105,6 +105,7 @@ var addToSigninTable = function(data)
 {
 
     var currentPeriod = $("#period_signin").val();
+
     $.ajax
         ({
             method: "POST",
@@ -201,7 +202,7 @@ $("body").on("click", "a.checkIn_btn", function(e)
                         $("#signin_alert").html("<strong>Success</strong> " + studentData.first_name + " " + studentData.last_name + " has been checked in.");
                         $("#signin_alert").fadeIn(500).delay(1000).fadeOut(500);
 
-
+                        $("#studentID").focus();
 
 
                     });
@@ -230,12 +231,27 @@ $("body").on("click", "a.checkIn_btn", function(e)
 
 });
 
-$("#studentID").keyup(function()
+$("#studentID").keyup(function(e)
 {
+    $("#last_name").val("");
+    $("#signin_table tbody tr").remove();
+    $("#signin_table").hide();
+
+    if(e.which == 13)
+    {
+        $("#searchID").trigger("click");
+    }
+});
+
+$("#searchID").click(function(e)
+{
+    e.preventDefault();
+
     signInTableCount = 0;
 
     $("#last_name").val("");
     $("#signin_table tbody tr").remove();
+    $("#signin_table").hide();
 
     var studentID = $("#studentID").val();
     if(studentID.length === 5)
@@ -250,8 +266,10 @@ $("#studentID").keyup(function()
 
 });
 
-$("#last_name").keyup(function()
+$("#searchName").click(function(e)
 {
+    e.preventDefault();
+
     signInTableCount = 0;
 
     $("#studentID").val("");
@@ -269,6 +287,16 @@ $("#last_name").keyup(function()
         $("#signin_table").hide();
     }
 
+});
+
+$("#last_name").keyup(function(e)
+{
+    $("#studentID").val("");
+
+   if(e.which == 13)
+   {
+       $("#searchName").trigger("click");
+   }
 });
 
 var getHistory = function(date, period)

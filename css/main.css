@@ -77,3 +77,16 @@
 {
     display: none;
 }
+
+
+#searchName, #searchID
+{
+    margin-top: 5px;
+}
+
+
+
+.well
+{
+    background-color: #f8f8f8;
+}
