@@ -1,16 +1,6 @@
 $("#date-requested").val(moment().format("YYYY-MM-DD"));
 $("#date-requested").attr("min", moment().format("YYYY-MM-DD"));
 
-var csvData;
-
-$.ajax
-({
-    method: "GET",
-    url: "StudentFile.csv",
-    dataType: "text",
-    success: function(data){processData(data)}
-});
-
 var processData = function(csv)
 {
     csvData = $.csv.toObjects(csv);
@@ -30,7 +20,7 @@ $("#signup-form").on("submit", function(event)
     var date_requested = $("#date-requested").val();
     var period = $("#period").val();
 
-    if(isValidStudent(csvData, first_name, last_name) === true)
+    if(isValidStudent(first_name, last_name) === true)
     {
         $.ajax
             ({
@@ -63,18 +53,30 @@ $("#signup-form").on("submit", function(event)
 });
 
 
-var isValidStudent = function(data, first_name, last_name)
+var isValidStudent = function(first_name, last_name)
 {
     var foundStudent = false;
 
-    for(var key in data)
-    {
-        if(data[key].first_name.toLowerCase().replace("'", "") === first_name.toLowerCase().replace("'", "") && data[key].last_name.toLowerCase().replace("'", "") === last_name.toLowerCase().replace("'", ""))
+    $.ajax
+    ({
+        method: "POST",
+        url: "getStudents.php",
+        data: {isValidRequest: true, first_name: first_name, last_name: last_name}
+    })
+        .done(function(data)
         {
-            foundStudent = true;
-        }
-
-    }
-
-    return foundStudent;
+            if(data === "true")
+            {
+                return true;
+            }
+            else if(data === "false")
+            {
+                return false;
+            }
+            else
+            {
+                console.log(data);
+                return false;
+            }
+        });
 }

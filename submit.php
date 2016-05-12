@@ -1,31 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Success!</title>
-
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
-    <link href="css/main.css" rel="stylesheet" />
-</head>
-
-<body>
-
-<div class="navbar navbar-default">
-    <div class="navbar-header">
-        <a class="navbar-brand" href="index.html">BFHS Library Signup</a>
-    </div>
-</div>
-
-<div class="container tab-content">
-
-
-        <?php
-
-        session_start();
+<?php
 
         if(isset($_POST["first-name"]))
         {
@@ -44,19 +17,15 @@
             }
             else
             {
-                $_SESSION["submitted"] = "true";
                 $formattedDate = strtotime($date_requested);
-                echo "
+                $expires =  time() + 604800;
 
-                <div class='alert alert-success'><strong>Success!</strong> Please screenshot/print the pass below to show to your study teacher.</div>
-                <div id='completed_pass' class='well'>
-                    <h2>Library Pass</h2>
-                    
-                    <p class='pass_item'><strong>Student Name: </strong>" . $first_name . " " . $last_name . "</p>
-                    <p class='pass_item'><strong>Date: </strong>" . date("l, F d", $formattedDate) . "</span>
-                    <p class='pass_item'><strong>Period: </strong>" . $period . "</span>
-                </div>
-                ";
+                setcookie("first_name", $first_name, $expires);
+                setcookie("last_name", $last_name, $expires);
+                setcookie("date", date("l, F d", $formattedDate), $expires);
+                setcookie("period", $period, $expires);
+
+                header("Location: pass.php");
             }
         }
         else
@@ -65,19 +34,4 @@
         }
 
 
-        ?>
-    </div>
-
-
-
-</div>
-
-
-
-
-<script src="js/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
-</body>
-
-</html>
-
+?>

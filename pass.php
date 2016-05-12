@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+        <title>Success!</title>
+    
+        <link href="css/bootstrap.min.css" rel="stylesheet" />
+        <link href="css/main.css" rel="stylesheet" />
+    </head>
+    
+    <body>
+    
+        <div class="navbar navbar-default">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="index.html">BFHS Library Signup</a>
+            </div>
+        </div>
+    
+        <div class="container tab-content">
+            <?php
+                echo "
+
+                    <div class='alert alert-success'><strong>Success!</strong> Please screenshot/print the pass below to show to your study teacher.</div>
+                    <div id='completed_pass' class='well'>
+                        <h2>Library Pass</h2>
+                        
+                        <p class='pass_item'><strong>Student Name: </strong>" . $_COOKIE["first_name"] . " " . $_COOKIE["last_name"] . "</p>
+                        <p class='pass_item'><strong>Date: </strong>" . $_COOKIE["date"] . "</span>
+                        <p class='pass_item'><strong>Period: </strong>" . $_COOKIE["period"] . "</span>
+                    </div>
+                ";
+            ?>
+        </div>
+    
+    
+
+    
+    
+    
+    
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    </body>
+
+</html>
+
+
+    
