@@ -231,8 +231,19 @@ $("body").on("click", "a.checkIn_btn", function(e)
 
 });
 
-
 $("#studentID").keyup(function(e)
+{
+    $("#last_name").val("");
+    $("#signin_table tbody tr").remove();
+    $("#signin_table").hide();
+
+    if(e.keyCode === 13)
+    {
+        $("#searchID").click();
+    }
+});
+
+$("#searchID").click(function(e)
 {
     e.preventDefault();
 
@@ -256,11 +267,24 @@ $("#studentID").keyup(function(e)
 
 $("#last_name").keyup(function(e)
 {
+    $("#studentID").val("");
+    $("#signin_table tbody tr").remove();
+    $("#signin_table").hide();
+
+    if(e.keyCode === 13)
+    {
+        $("#searchName").click();
+    }
+});
+
+$("#searchName").click(function(e)
+{
     e.preventDefault();
 
 
     $("#studentID").val("");
     $("#signin_table tbody tr").remove();
+    $("#signin_table").hide();
 
     var last_name = $("#last_name").val();
 

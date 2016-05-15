@@ -28,7 +28,7 @@
                     <div id='completed_pass' class='well'>
                         <h2>Library Pass</h2>
                         
-                        <p class='pass_item'><strong>Student Name: </strong>" . $_COOKIE["first_name"] . " " . $_COOKIE["last_name"] . "</p>
+                        <p class='pass_item'><strong>Student Name: </strong>" . ucfirst(strtolower($_COOKIE["first_name"])) . " " . ucfirst(strtolower($_COOKIE["last_name"])) . "</p>
                         <p class='pass_item'><strong>Date: </strong>" . $_COOKIE["date"] . "</span>
                         <p class='pass_item'><strong>Period: </strong>" . $_COOKIE["period"] . "</span>
                     </div>
