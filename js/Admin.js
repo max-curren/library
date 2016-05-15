@@ -1,25 +1,9 @@
 $("#date-requested").val(moment().format("YYYY-MM-DD"));
 $("#date-requested_history").val(moment().format("YYYY-MM-DD"));
 
-var csvData;
-var csvDataArray = [];
 var date = moment().format("YYYY-MM-DD");
-var signInTableCount = 0;
 
-$.ajax
-({
-    method: "GET",
-    url: "StudentFile.csv",
-    dataType: "text",
-    success: function(data){processData(data)}
-});
-
-
-var processData = function(csv)
-{
-    csvData = $.csv.toObjects(csv);
-};
-
+var studentDataArray;
 
 var xLimit;
 $.ajax
@@ -66,44 +50,61 @@ $("#setLimit").click(function(e)
 
 
 
-var searchByID = function(data, id)
+var searchByID = function(id)
 {
-    //var resultsArray = [];
-    csvDataArray = [];
+    studentDataArray = [];
 
-    for(var key in data)
-    {
-        if(data[key].id === id)
-        {
-            csvDataArray.push(data[key]);
-            addToSigninTable(data[key]);
-        }
 
-    }
 
-    //console.log(resultsArray);
+    $.ajax
+        ({
+            method: "POST",
+            url: "searchStudents.php",
+            data: {isValidRequest: true, searchType: "id", searchTerm: id}
+        })
+        .done(function (result) {
+
+            result = $.parseJSON(result);
+
+            if(result !== "Not found")
+            {
+                studentDataArray.push(result[0]);
+                addToSigninTable(result[0]);
+            }
+
+
+        });
 };
 
-var searchByLastName = function(data, last_name)
+var searchByLastName = function(last_name)
 {
-    csvDataArray = [];
+    studentDataArray = [];
 
-    for(var key in data)
-    {
+    $.ajax
+        ({
+            method: "POST",
+            url: "searchStudents.php",
+            data: {isValidRequest: true, searchType: "name", searchTerm: last_name}
+        })
+        .done(function (result) {
 
-        if(data[key].last_name.toLowerCase().replace("'", "").indexOf(last_name.toLowerCase()) == 0 && signInTableCount < 7)
-        {
-            signInTableCount++;
-            csvDataArray.push(data[key]);
-            addToSigninTable(data[key]);
-        }
+            if(result !== "Not found")
+            {
+                result = $.parseJSON(result);
+                for(var key in result)
+                {
+                    studentDataArray.push(result[key]);
+                    addToSigninTable(result[key]);
+                }
+            }
 
-    }
+
+        });
+
 }
 
 var addToSigninTable = function(data)
 {
-
     var currentPeriod = $("#period_signin").val();
 
     $.ajax
@@ -119,7 +120,7 @@ var addToSigninTable = function(data)
             for (var key in passArray)
             {
 
-                if (passArray[key][0].toLowerCase() === data.first_name.toLowerCase() && passArray[key][1].toLowerCase() === data.last_name.toLowerCase())
+                if (passArray[key][0].toLowerCase() === data[1].toLowerCase() && passArray[key][1].toLowerCase() === data[0].toLowerCase())
                 {
                     hasPass = "Yes";
                 }
@@ -128,7 +129,7 @@ var addToSigninTable = function(data)
             }
 
             $("#signin_table").show();
-            $("#signin_table tbody").append("<tr><td>" + data.first_name + "</td><td>" + data.last_name + "</td><td>" + data.homeroom + "</td><td>" + data.id + "</td><td>" + data.grade + "</td><td>" + hasPass + "</td><td><a id='" + data.id + "' href='#' class='checkIn_btn btn-sm btn-success'>Check in</a></td></tr>");
+            $("#signin_table tbody").append("<tr><td>" + data[1] + "</td><td>" + data[0] + "</td><td>" + data[2] + "</td><td>" + data[3] + "</td><td>" + data[4] + "</td><td>" + hasPass + "</td><td><a id='" + data[3] + "' href='#' class='checkIn_btn btn-sm btn-success'>Check in</a></td></tr>");
         });
 
 
@@ -137,7 +138,6 @@ var addToSigninTable = function(data)
 $("body").on("click", "a.checkIn_btn", function(e)
 {
     e.preventDefault();
-    signInTableCount = 0;
 
     var id = this.id;
     var studentData;
@@ -145,11 +145,11 @@ $("body").on("click", "a.checkIn_btn", function(e)
     var hadAPass = false;
 
 
-    for(var key in csvDataArray)
+    for(var key in studentDataArray)
     {
-        if(csvDataArray[key].id === id)
+        if(studentDataArray[key][3] === id)
         {
-            studentData = csvDataArray[key];
+            studentData = studentDataArray[key];
         }
     }
 
@@ -164,7 +164,7 @@ $("body").on("click", "a.checkIn_btn", function(e)
 
             for(var key in passArray)
             {
-                if(passArray[key][0].toLowerCase() === studentData.first_name.toLowerCase() && passArray[key][1].toLowerCase() === studentData.last_name.toLowerCase())
+                if(passArray[key][0].toLowerCase() === studentData[1].toLowerCase() && passArray[key][1].toLowerCase() === studentData[0].toLowerCase())
                 {
                     hadAPass = true;
                 }
@@ -180,11 +180,11 @@ $("body").on("click", "a.checkIn_btn", function(e)
                     url: "checkIn.php",
                     data: {
                         isValidRequest: true,
-                        first_name: studentData.first_name,
-                        last_name: studentData.last_name,
+                        first_name: studentData[1],
+                        last_name: studentData[0],
                         student_id: id,
-                        homeroom: studentData.homeroom,
-                        grade: studentData.grade,
+                        homeroom: studentData[2],
+                        grade: studentData[4],
                         hadAPass: hadAPass,
                         currentPeriod: currentPeriod,
                         date: date
@@ -199,7 +199,7 @@ $("body").on("click", "a.checkIn_btn", function(e)
 
                         $("#signin_table").hide();
 
-                        $("#signin_alert").html("<strong>Success</strong> " + studentData.first_name + " " + studentData.last_name + " has been checked in.");
+                        $("#signin_alert").html("<strong>Success</strong> " + studentData[1] + " " + studentData[0] + " has been checked in.");
                         $("#signin_alert").fadeIn(500).delay(1000).fadeOut(500);
 
                         $("#studentID").focus();
@@ -211,7 +211,7 @@ $("body").on("click", "a.checkIn_btn", function(e)
 
             if(hadAPass === false)
             {
-                if(confirm(studentData.first_name + " " + studentData.last_name + " does not have a pass for this period. Would you like to check them in anyways?"))
+                if(confirm(studentData[1] + " " + studentData[0] + " does not have a pass for this period. Would you like to check them in anyways?"))
                 {
                     checkIn();
                 }
@@ -237,9 +237,9 @@ $("#studentID").keyup(function(e)
     $("#signin_table tbody tr").remove();
     $("#signin_table").hide();
 
-    if(e.which == 13)
+    if(e.keyCode === 13)
     {
-        $("#searchID").trigger("click");
+        $("#searchID").click();
     }
 });
 
@@ -247,40 +247,16 @@ $("#searchID").click(function(e)
 {
     e.preventDefault();
 
-    signInTableCount = 0;
 
     $("#last_name").val("");
     $("#signin_table tbody tr").remove();
     $("#signin_table").hide();
 
     var studentID = $("#studentID").val();
-    if(studentID.length === 5)
+    if(studentID.length === 5 && isNaN(studentID) === false)
     {
         $("#signin_table tbody tr").remove();
-        searchByID(csvData, studentID);
-    }
-    else
-    {
-        $("#signin_table").hide();
-    }
-
-});
-
-$("#searchName").click(function(e)
-{
-    e.preventDefault();
-
-    signInTableCount = 0;
-
-    $("#studentID").val("");
-    $("#signin_table tbody tr").remove();
-
-    var last_name = $("#last_name").val();
-
-    if(last_name != "")
-    {
-        $("#signin_table tbody tr").remove();
-        searchByLastName(csvData, last_name);
+        searchByID(studentID);
     }
     else
     {
@@ -292,12 +268,39 @@ $("#searchName").click(function(e)
 $("#last_name").keyup(function(e)
 {
     $("#studentID").val("");
+    $("#signin_table tbody tr").remove();
+    $("#signin_table").hide();
 
-   if(e.which == 13)
-   {
-       $("#searchName").trigger("click");
-   }
+    if(e.keyCode === 13)
+    {
+        $("#searchName").click();
+    }
 });
+
+$("#searchName").click(function(e)
+{
+    e.preventDefault();
+
+
+    $("#studentID").val("");
+    $("#signin_table tbody tr").remove();
+    $("#signin_table").hide();
+
+    var last_name = $("#last_name").val();
+
+    if(last_name != "")
+    {
+        $("#signin_table tbody tr").remove();
+        searchByLastName(last_name);
+    }
+    else
+    {
+        $("#signin_table").hide();
+    }
+
+});
+
+
 
 var getHistory = function(date, period)
 {
