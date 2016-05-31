@@ -4,10 +4,10 @@
         {
             require "DB.php";
 
-            $first_name = $conn->real_escape_string($_POST["first-name"]);
-            $last_name = $conn->real_escape_string($_POST["last-name"]);
-            $date_requested = $conn->real_escape_string($_POST["date-requested"]);
-            $period = $conn->real_escape_string($_POST["period"]);
+            $first_name = $conn->real_escape_string(strip_tags($_POST["first-name"]));
+            $last_name = $conn->real_escape_string(strip_tags($_POST["last-name"]));
+            $date_requested = $conn->real_escape_string(strip_tags($_POST["date-requested"]));
+            $period = $conn->real_escape_string(strip_tags($_POST["period"]));
             
             $query = "INSERT INTO passes (first_name, last_name, date_requested, period_requested) VALUES ('$first_name', '$last_name', '$date_requested', '$period')";
 
