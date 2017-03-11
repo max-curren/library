@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Library Signup</title>
+    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+
+    <title>BFHS Library Pass Sign-up</title>
 
     <noscript><meta http-equiv="refresh" content="0; URL=enablejs.html"></noscript>
 
@@ -16,18 +18,19 @@
 
 <body>
 
-    <div class="navbar navbar-default">
+    <div class="header navbar navbar-default">
         <div class="navbar-header">
-            <a href="index.html" class="navbar-brand">BFHS Library Signup</a>
+            <img id="shamrock" src="img/shamrock.png" />
+            <a href="index.html" class="navbar-brand">BFHS Library Pass Sign-up</a>
         </div>
     </div>
 
-    <div class="container tab-content">
-
-        <div class="well">
+    <div id="main-container" class="container tab-content">
+        <div id="signup_div">
+            <p class="lead">Enter your information below to sign up for a library pass.</p>
             <form action="submit.php" method="post" id="signup-form">
                 <fieldset class="form-group">
-                    <label for="first-name">First name</label>
+                    <label for="first-name"><i>Legal</i> first name</label>
                     <input type="text" class="form-control" id="first-name" name="first-name" required />
                 </fieldset>
 
@@ -56,7 +59,7 @@
                 </fieldset>
 
                 <fieldset class="form-group">
-                    <input type="submit" class="btn btn-default" value="Sign up" />
+                    <input type="submit" id="signup_btn" class="btn btn-default" value="Sign up" />
                 </fieldset>
 
                 <fieldset class="form-group">
@@ -68,7 +71,9 @@
             </form>
         </div>
 
-
+        <div id="footer">
+            <span>Created by Max Curren, Class of '16</span>
+        </div>
 
     </div>
 
