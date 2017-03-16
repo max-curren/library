@@ -10,15 +10,17 @@
     
         <link href="css/bootstrap.min.css" rel="stylesheet" />
         <link href="css/main.css" rel="stylesheet" />
+        <link href="css/pass.css" rel="stylesheet" />
     </head>
     
     <body>
-    
-        <div class="navbar navbar-default">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="index.html">BFHS Library Signup</a>
-            </div>
+
+    <div class="header navbar navbar-default">
+        <div class="navbar-header">
+            <img id="shamrock" src="img/shamrock.png" />
+            <a href="index.html" class="navbar-brand">BFHS Library Pass Sign-up</a>
         </div>
+    </div>
     
         <div class="container tab-content">
             <?php

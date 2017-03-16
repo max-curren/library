@@ -1,0 +1,9 @@
+#completed_pass h2
+{
+    font-weight: bold;
+}
+
+#completed_pass .pass_item
+{
+    font-size: 20px;
+}

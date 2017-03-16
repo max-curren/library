@@ -1,0 +1,80 @@
+#admin_period
+{
+    float: right;
+}
+
+#admin_form
+{
+    margin-bottom: 20px;
+}
+
+#lib_signin
+{
+    margin-top: 20px;
+}
+
+#requestedPasses_header
+{
+    margin-bottom: 20px;
+}
+
+#history_period
+{
+    float: right;
+}
+
+#history_header
+{
+    margin-bottom: 25px;
+}
+
+#history_form
+{
+    margin-bottom: 20px;
+}
+
+#or
+{
+    margin-bottom: 10px;
+}
+
+#signin_alert
+{
+    display: none;
+}
+
+#checkin_header
+{
+    margin-bottom: 20px;
+}
+
+#signin_table
+{
+    display: none;
+}
+
+#xLimit_header
+{
+    margin-bottom: 15px;
+}
+
+#limit_alert
+{
+    display: none;
+}
+
+#searchName, #searchID
+{
+    margin-top: 5px;
+}
+
+/*.nav li a*/
+/*{*/
+    /*height: 50px;*/
+    /*vertical-align: middle;*/
+/*}*/
+
+.active
+{
+    background-color: #eeeeee;
+}

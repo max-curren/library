@@ -33,56 +33,6 @@ body
     display: none;
 }
 
-#admin_period
-{
-    float: right;
-}
-
-#admin_form
-{
-    margin-bottom: 20px;
-}
-
-#lib_signin
-{
-    margin-top: 20px;
-}
-
-#requestedPasses_header
-{
-    margin-bottom: 20px;
-}
-
-#history_period
-{
-    float: right;
-}
-
-#history_header
-{
-    margin-bottom: 25px;
-}
-
-#history_form
-{
-    margin-bottom: 20px;
-}
-
-#or
-{
-    margin-bottom: 10px;
-}
-
-#signin_alert
-{
-    display: none;
-}
-
-#checkin_header
-{
-    margin-bottom: 20px;
-}
-
 #signup_div
 {
     /*background-color:*/
@@ -108,37 +58,6 @@ body
     margin: 10px auto -6px auto;
     display: block;
     width: 100px;
-}
-
-#signin_table
-{
-    display: none;
-}
-
-#completed_pass h2
-{
-    font-weight: bold;
-}
-
-#completed_pass .pass_item
-{
-    font-size: 20px;
-}
-
-#xLimit_header
-{
-    margin-bottom: 15px;
-}
-
-#limit_alert
-{
-    display: none;
-}
-
-
-#searchName, #searchID
-{
-    margin-top: 5px;
 }
 
 #footer
