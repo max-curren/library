@@ -355,8 +355,9 @@ var getPasses = function(date, period)
 
                  for(var key in passArray)
                  {
-                     var dateTime = moment(passArray[key][2]).format('h:mm:ss a');
-                     $("#admin_table tbody").append("<tr><td>" + passArray[key][0] + "</td><td>" + passArray[key][1] + "</td><td>" + dateTime + "</td></tr>");
+                     var date = moment(passArray[key][2]).format('MM/DD/YYYY');
+                     var time = moment(passArray[key][2]).format('h:mm:ss a');
+                     $("#admin_table tbody").append("<tr><td>" + passArray[key][0] + "</td><td>" + passArray[key][1] + "</td><td>" + date + "</td><td>" + time + "</td></tr>");
                  }
            // }
 
@@ -417,6 +418,12 @@ $("#period_history").change(function()
     period_history = $("#period_history").val();
 
     getHistory(date_history, period_history);
+});
+
+$(".nav li a").click(function()
+{
+    $(".nav li").removeClass("active");
+    // $(this).addClass("active");
 });
 
 $("#pass_nav").click(function()

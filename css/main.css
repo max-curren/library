@@ -13,7 +13,7 @@ body
 .header
 {
     background-color: #00573d;
-}
+    width: 100% !important;  }
 
 #shamrock
 {

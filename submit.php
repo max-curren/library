@@ -22,7 +22,7 @@
 
                 setcookie("first_name", $first_name, $expires);
                 setcookie("last_name", $last_name, $expires);
-                setcookie("date", date("l, F d", $formattedDate), $expires);
+                setcookie("date", date("l, F d, Y", $formattedDate), $expires);
                 setcookie("period", $period, $expires);
 
                 header("Location: pass.php");

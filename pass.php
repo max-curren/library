@@ -22,7 +22,7 @@
         </div>
     </div>
     
-        <div class="container tab-content">
+        <div class="container">
             <?php
                 echo "
 
