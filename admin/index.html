@@ -11,6 +11,8 @@
     <link href="../css/bootstrap.min.css" rel="stylesheet" />
     <link href="../css/main.css" rel="stylesheet" />
     <link href="../css/admin.css" rel="stylesheet" />
+    <link href="../css/bootstrap-sortable.css" rel="stylesheet" />
+
 </head>
 
 <body>
@@ -39,9 +41,9 @@
         <!--<div class="collapse navbar-collapse" id="navbarNavAltMarkup">-->
             <div class="nav nav-tabs">
                 <li class="active"><a id="checkIn_nav" class="navLink" data-toggle="tab" href="#check_in">Check in</a></li>
-                <li><a id="pass_nav" data-toggle="tab" href="#passes">Passes</a></li>
-                <li><a id="history_nav" data-toggle="tab" href="#history">History</a></li>
-                <li><a id="xLimit_nav" data-toggle="tab" href="#xLimit">Set X Limit</a></li>
+                <li><a id="pass_nav" class="navLink" data-toggle="tab" href="#passes">Passes</a></li>
+                <li><a id="history_nav" class="navLink" data-toggle="tab" href="#history">History</a></li>
+                <li><a id="xLimit_nav" class="navLink" data-toggle="tab" href="#xLimit">Set X Limit</a></li>
             </div>
         <!--</div>-->
     </nav>
@@ -105,7 +107,7 @@
         </form>
 
         <div class="table-responsive">
-            <table id="signin_table" class="table">
+            <table id="signin_table" class="table sortable">
                 <thead>
                 <tr>
                     <th>
@@ -172,7 +174,7 @@
         </form>
 
         <div class="table-responsive">
-            <table id="admin_table" class="table">
+            <table id="admin_table" class="table sortable">
                 <thead>
                 <tr>
                     <th>
@@ -226,7 +228,7 @@
         </form>
 
         <div class="table-responsive">
-            <table id="history_table" class="table">
+            <table id="history_table" class="table sortable">
                 <thead>
                 <tr>
                     <th>
@@ -239,10 +241,6 @@
 
                     <th>
                         Time Checked In
-                    </th>
-
-                    <th>
-                        Period
                     </th>
 
                     <th>
@@ -295,6 +293,8 @@
 <script src="../js/jquery.csv.min.js"></script>
 <script src="../js/Admin.js"></script>
 <script src="../js/bootstrap.min.js"></script>
+<script src="../js/bootstrap-sortable.js"></script>
+
 </body>
 
 </html>
